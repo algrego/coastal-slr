@@ -1,0 +1,36 @@
+close all, clear all
+
+cd /Users/alisongregory/Sea_Level_Rise/
+
+load getcoast4_loaded.mat
+
+rb1
+
+load alldata.mat
+
+%extract the variables from alldata (just easier to work with)
+ 
+  lat=alldata2(:,1);
+  lon=alldata2(:,2);
+  slr=alldata2(:,3); %SLR meters
+  pop=alldata2(:,4); %2020 pop data
+
+  socioecon=alldata2(:,5); 
+  house=alldata2(:,6);
+  race=alldata2(:,7); 
+  transp=alldata2(:,8); 
+  slrsv=alldata2(:,10);
+
+clear alldata
+
+% sort by pop (so large bubbles don't cover small ones)
+[~,i]=sort(pop,'descend');
+lon=lon(i);
+lat=lat(i);
+pop=pop(i);
+slr=slr(i);
+socioecon=socioecon(i);
+house=house(i);
+race=race(i);
+transp=transp(i);
+slrsv=slrsv(i);
