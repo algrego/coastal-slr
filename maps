@@ -34,3 +34,119 @@ house=house(i);
 race=race(i);
 transp=transp(i);
 slrsv=slrsv(i);
+
+clear i
+
+% make a version of population that is capped at 500k (so some bubbles aren't huge, making some nearly invisible)
+pop2=pop;
+pop2(pop2>500000)=500000;
+
+% start a new figure, with some nice aesthetic choices, using the function kfig.m (by Kris)
+kfig(1)
+scatter(lon,lat,0.001*pop2,slr,'fill')
+plot(xcoast,ycoast,'k','LineWidth',1)
+[yusa,xusa]=borders('continental us');
+for s=1:length(xusa)
+    plot(xusa{s},yusa{s},'k','LineWidth',1)
+end; clear s
+
+axis equal
+axis([-170 -60 15 65])
+title('Figure 1: Sea Level Rise')
+colorbar
+colormap('parula')
+caxis([0 1.5])
+
+%%
+kfig(2)
+scatter(lon,lat,0.001*pop2,socioecon,'fill')
+plot(xcoast,ycoast,'k','LineWidth',1)
+[yusa,xusa]=borders('continental us');
+for s=1:length(xusa)
+    plot(xusa{s},yusa{s},'k','LineWidth',1)
+end; clear s
+
+axis equal
+axis([-170 -60 15 65])
+title('Figure 2: Socioeconomic Vulnerability')
+colorbar
+colormap(rb)
+caxis([0 1])
+
+%%
+kfig(3)
+scatter(lon,lat,0.001*pop2,house,'fill')
+plot(xcoast,ycoast,'k','LineWidth',1)
+[yusa,xusa]=borders('continental us');
+for s=1:length(xusa)
+    plot(xusa{s},yusa{s},'k','LineWidth',1)
+end; clear s
+
+axis equal
+axis([-170 -60 15 65])
+title('Figure 3: Household Vulnerability')
+colorbar
+colormap(rb)
+caxis([0 1])
+
+
+
+
+%% make another figure zoomed into GULF REGION just for fun
+kfig(4)
+%scatter(lon,lat,0.001*pop2,slr,'fill')
+scatter(lon,lat,0.001*pop2,slr,'fill','MarkerEdgeColor','k','LineWidth',1)
+plot(xcoast,ycoast,'k','LineWidth',1)
+[yusa,xusa]=borders('continental us');
+for s=1:length(xusa)
+    plot(xusa{s},yusa{s},'k','LineWidth',1)
+end; clear s
+axis equal
+title('Coastal Gulf Region: Sea Level Rise')
+axis([-100 -76 24 33])
+colorbar
+colormap(flipud(hot))
+caxis([0 1.5])
+
+kfig(5)
+%scatter(lon,lat,0.001*pop2,socioecon,'fill')
+scatter(lon,lat,0.001*pop2,socioecon,'fill','MarkerEdgeColor','k','LineWidth',1)
+plot(xcoast,ycoast,'k','LineWidth',1)
+[yusa,xusa]=borders('continental us');
+for s=1:length(xusa)
+    plot(xusa{s},yusa{s},'k','LineWidth',1)
+end; clear s
+axis equal
+title('Coastal Gulf Region: Socioeconomic Vulnerability')
+axis([-100 -76 24 33])
+colorbar
+colormap(flipud(hot))
+caxis([0 1.5])
+
+%%
+kfig(6)
+%scatter(lon,lat,0.001*pop2,slrsv,'fill')
+scatter(lon,lat,0.001*pop2,slrsv,'fill','MarkerEdgeColor','k','LineWidth',1)
+plot(xcoast,ycoast,'k','LineWidth',1)
+[yusa,xusa]=borders('continental us');
+for s=1:length(xusa)
+    plot(xusa{s},yusa{s},'k','LineWidth',1)
+end; clear s
+axis equal
+title('SLR x SVI')
+axis([-100 -76 24 33])
+colorbar
+colormap(flipud(hot))
+caxis([0 1.5])
+
+%%
+% how about the west coast
+kfig(7)
+scatter(lon,lat,0.001*pop2,slrsvi,'fill')
+plot(xcoast,ycoast,'k','LineWidth',1)
+title('SLR x SVI')
+axis equal
+axis([-125 -115 30 50])
+colorbar
+colormap(rb)
+caxis([0 1.5]) % <-- note that I adjusted the color scale down to 25 because the large values just aren't as large along the west coast so this helps you see the differences along the coast better
